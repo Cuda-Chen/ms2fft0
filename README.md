@@ -5,3 +5,9 @@ Get a signal, FFT it, and output the amplitude and phase.
 ```bash
 $ git clone --recursive https://github.com/Cuda-Chen/ms2fft0.git
 ```
+
+# Output Format
+```
+<fs>, <amplitude>, <phase>
+```
+NOTE: `<amplitude>` is un-normalized, `<phase>` is in radian.
