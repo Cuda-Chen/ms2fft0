@@ -3,12 +3,12 @@ DUMPDATA = 1
 
 CC = gcc
 EXEC = ms2fft0
-COMMON = -I./libmseed/ -I.
+COMMON = -I./libmseed/ -I./fftw_module/ -I.
 CFLAGS =  -Wall
 LDFLAGS = -L./libmseed -Wl,-rpath,./libmseed
 LDLIBS = -Wl,-Bstatic -lmseed -Wl,-Bdynamic -lm -lfftw3
 
-OBJS = main.o standard_deviation.o fft.o
+OBJS = main.o standard_deviation.o fftw_module/fft.o
 
 ifeq ($(DEBUG), 1)
 CFLAGS += -O0 -g -DDEBUG=1

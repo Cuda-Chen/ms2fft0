@@ -31,7 +31,6 @@ dumpdata (double *data, uint64_t totalSamples, FILE *fptr)
 }
 
 static void demean (double *data, uint64_t totalSamples, double demean);
-static void plotFrequencyResponse (const char *inputfile, double maxFrequency);
 
 int
 main (int argc, char **argv)
@@ -177,9 +176,7 @@ main (int argc, char **argv)
 #ifdef DUMPDATA
     dumpdata (data, totalSamples, fptr);
 #endif
-    fftToFileHalf (data, totalSamples, sampleRate, output);
-
-    //plotFrequencyResponse (fftoutputFile, sampleRate / 2.);
+    ampNPhaseToFile (data, totalSamples, sampleRate, output);
 
     free (data);
     tid = tid->next;
@@ -203,29 +200,4 @@ demean (double *data, uint64_t totalSamples, double mean)
   {
     data[i] -= mean;
   }
-}
-
-/* Plot Frequency Response using `gnuplot` */
-static void
-plotFrequencyResponse (const char *inputfile, double maxFrequency)
-{
-  char config[] =
-      "set title 'Frequency Domain'\n"
-      "set ylabel 'Amplitude'\n"
-      "set xlabel 'Frequency [Hz]'\n";
-
-  /* Set title, xlabel, and ylabel */
-  FILE *plot;
-  plot = popen ("gnuplot -p", "w");
-  fprintf (plot, config);
-
-  /* Read inputfile (fftoutput.txt) and plot half of the sample points */
-  fprintf (plot, "inputfile = '%s'\n", inputfile);
-  fprintf (plot, "stats inputfile nooutput\n");
-  fprintf (plot, "set xrange[:%lf]\n", maxFrequency);
-
-  fprintf (plot, "plot \
-            inputfile using ($1):(abs($2)/STATS_records)\n");
-
-  pclose (plot);
 }
