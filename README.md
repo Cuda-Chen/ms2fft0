@@ -6,6 +6,12 @@ Get a signal, FFT it, and output the amplitude and phase.
 $ git clone --recursive https://github.com/Cuda-Chen/ms2fft0.git
 ```
 
+# Compile and Run
+```
+$ make
+$ 
+```
+
 # Output Format
 ```
 <fs>, <amplitude>, <phase>
