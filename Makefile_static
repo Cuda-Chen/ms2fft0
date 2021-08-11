@@ -4,10 +4,10 @@ FFTW_DIR_NAME = fftw-3.3.8
 
 CC = gcc
 EXEC = ms2fft0
-COMMON = -I../libmseed/ -I./fftw_module/ -I. -I../{$FFTW_DIR_NAME}/include/
+COMMON = -I../libmseed/ -I./fftw_module/ -I. -I../${FFTW_DIR_NAME}/include/
 CFLAGS =  -Wall
 LDFLAGS = -L../libmseed -Wl,-rpath,../libmseed \
-	-L../$(FFTW_DIR_NAME)/lib -Wl,-rpath,../$(FFTW_DIR_NAME)/lib
+	-L../${FFTW_DIR_NAME}/lib -Wl,-rpath,../${FFTW_DIR_NAME)}/lib
 LDLIBS = -Wl,-Bstatic -lmseed -lfftw3 -Wl,-Bdynamic -lm
 
 OBJS = main.o standard_deviation.o fftw_module/fft.o
